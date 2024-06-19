@@ -1,0 +1,291 @@
+package goods;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
+
+public class HOCKEY extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField id;
+	private JTextField name;
+	private JTextField amount;
+	private JTextField quantity;
+	private JTable table;
+	private JTextField phone;
+	private JTextField address;
+	private JTextField date;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HOCKEY frame = new HOCKEY();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HOCKEY() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 988, 581);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel contentPane_1 = new JPanel();
+		contentPane_1.setBackground(new Color(102, 0, 204));
+		contentPane_1.setLayout(null);
+		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane_1.setBounds(0, 0, 973, 544);
+		contentPane.add(contentPane_1);
+		
+		JLabel lblNewLabel = new JLabel("ID");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setBounds(27, 58, 54, 27);
+		contentPane_1.add(lblNewLabel);
+		
+		JLabel lblName = new JLabel("NAME");
+		lblName.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblName.setBounds(27, 111, 54, 27);
+		contentPane_1.add(lblName);
+		
+		id = new JTextField();
+		id.setColumns(10);
+		id.setBounds(142, 62, 117, 26);
+		contentPane_1.add(id);
+		
+		name = new JTextField();
+		name.setColumns(10);
+		name.setBounds(140, 111, 196, 26);
+		contentPane_1.add(name);
+		
+		JLabel lblQuantity = new JLabel("QUANTITY");
+		lblQuantity.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblQuantity.setBounds(27, 166, 90, 27);
+		contentPane_1.add(lblQuantity);
+		
+		JLabel lblKits = new JLabel("KITS");
+		lblKits.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblKits.setBounds(27, 222, 90, 27);
+		contentPane_1.add(lblKits);
+		
+		JLabel lblAmountPerQuantity = new JLabel("AMOUNT PER QUANTITY");
+		lblAmountPerQuantity.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblAmountPerQuantity.setBounds(337, 58, 232, 27);
+		contentPane_1.add(lblAmountPerQuantity);
+		
+		amount = new JTextField();
+		amount.setColumns(10);
+		amount.setBounds(565, 58, 196, 26);
+		contentPane_1.add(amount);
+		
+		quantity = new JTextField();
+		quantity.setColumns(10);
+		quantity.setBounds(142, 166, 196, 26);
+		contentPane_1.add(quantity);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"HOCKEY BAT", "HOCKEY BALL", "PADS(PAIR)", "HELMET"}));
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 16));
+		comboBox.setBounds(142, 221, 240, 35);
+		contentPane_1.add(comboBox);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(27, 289, 734, 224);
+		contentPane_1.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+			},
+			new String[] {
+				 "ID", "NAME", "QUANTITY", "KITS", "TOT AMOUNT", "PHONE NO", "ADDERSS","DATE"
+			}
+		));
+		
+		JLabel lblPhone = new JLabel("PHONE");
+		lblPhone.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblPhone.setBounds(390, 111, 117, 27);
+		contentPane_1.add(lblPhone);
+		
+		JLabel lblAddress = new JLabel("ADDRESS");
+		lblAddress.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblAddress.setBounds(390, 166, 117, 27);
+		contentPane_1.add(lblAddress);
+		
+		phone = new JTextField();
+		phone.setColumns(10);
+		phone.setBounds(565, 115, 196, 26);
+		contentPane_1.add(phone);
+		
+		address = new JTextField();
+		address.setColumns(10);
+		address.setBounds(565, 170, 196, 26);
+		contentPane_1.add(address);
+		
+		JButton btnNewButton = new JButton("ADD");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String kits = (String) comboBox.getSelectedItem();
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/goods","root","Vikash@123");
+					
+					String sql="insert into hockey values(?,?,?,?,?,?,?,?)";
+					PreparedStatement pts=con.prepareStatement(sql);
+					pts.setString(1, id.getText());
+					pts.setString(2, name.getText());
+					pts.setString(3, quantity.getText());
+					pts.setString(4, kits);
+					pts.setString(5, amount.getText());
+					pts.setString(6, phone.getText());
+					pts.setString(7, address.getText());
+					pts.setString(8, date.getText());
+					
+
+					
+					name.requestFocus();
+					
+					
+
+					
+					pts.executeUpdate();
+					 JOptionPane.showMessageDialog(null,"it has been registered");
+				}
+					catch(Exception ex) {
+						JOptionPane.showMessageDialog(null,"it has not been registered");
+						ex.printStackTrace();
+
+					}
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.setBounds(421, 224, 100, 28);
+		contentPane_1.add(btnNewButton);
+		
+		JButton btnShow = new JButton("SHOW");
+		btnShow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/goods","root","Vikash@123");
+					Statement st=con.createStatement();
+					String sql="select id,name,quantity,kits,(quantity*amount) as tot_amount,phone,address,date from hockey";
+					
+					PreparedStatement pts=con.prepareStatement(sql);
+					ResultSet rs= pts.executeQuery();
+					    DefaultTableModel dt=(DefaultTableModel)table.getModel();
+					dt.setRowCount(0);
+					while(rs.next()) {
+					
+					Object o[]= {rs.getString("id"),rs.getString("name"),rs.getString("quantity"),rs.getString("kits"),rs.getString("tot_amount"),rs.getString("phone"),rs.getString("address"),rs.getString("date")};
+					dt.addRow(o);
+					}
+			}
+				catch(Exception ec) {
+					JOptionPane.showMessageDialog(null,"it has not been registered");
+					ec.printStackTrace();
+				}
+			}
+		});
+		btnShow.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnShow.setBounds(558, 224, 100, 28);
+		contentPane_1.add(btnShow);
+		
+		JButton btnDelete = new JButton("DELETE");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String code=id.getText();
+				try {
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/goods","root","Vikash@123");
+					String sql="delete from hockey WHERE id='"+code+"'";
+					PreparedStatement pts=con.prepareStatement(sql);
+					
+					pts.execute();
+				}
+				catch(Exception ec) {
+					JOptionPane.showMessageDialog(null,"it has not been registered");
+					ec.printStackTrace();
+					
+				}
+			}
+		});
+		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnDelete.setBounds(694, 222, 100, 28);
+		contentPane_1.add(btnDelete);
+		
+		JLabel lblDate = new JLabel("DATE OF DELIVERY\r\n");
+		lblDate.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblDate.setBounds(778, 58, 185, 27);
+		contentPane_1.add(lblDate);
+		
+		date = new JTextField();
+		date.setColumns(10);
+		date.setBounds(777, 95, 196, 26);
+		contentPane_1.add(date);
+		
+		JButton btnBack = new JButton("BACK");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sports frame = new sports();
+				frame.setVisible(true);
+			}
+		});
+		btnBack.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnBack.setBounds(863, 10, 100, 28);
+		contentPane_1.add(btnBack);
+	}
+}

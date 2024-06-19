@@ -1,0 +1,150 @@
+package goods;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.awt.event.ActionEvent;
+
+public class newuser extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField newuser;
+	private JPasswordField newpass;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					newuser frame = new newuser();
+					frame.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public newuser() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 638, 438);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("USERNAME");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblNewLabel.setBounds(80, 125, 139, 41);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblPasssword = new JLabel("PASSSWORD");
+		lblPasssword.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblPasssword.setBounds(80, 209, 139, 41);
+		contentPane.add(lblPasssword);
+		
+		newuser = new JTextField();
+		newuser.setBounds(268, 125, 173, 32);
+		contentPane.add(newuser);
+		newuser.setColumns(10);
+		
+		newpass = new JPasswordField();
+		newpass.setBounds(268, 209, 173, 32);
+		contentPane.add(newpass);
+		
+		JButton signin = new JButton("CONFIRM");
+		signin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int i=1,c=0;
+					String nu = newuser.getText();
+					String np = newpass.getText();	
+					
+					Class.forName("com.mysql.cj.jdbc.Driver");
+					Connection con1 = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/goods","root","Vikash@123");
+					Statement st1 = con1.createStatement();
+					
+					String sql1 =  "Select * from access";
+					ResultSet res1 = st1.executeQuery(sql1);
+					System.out.println("1");
+					
+					System.out.println("2");
+					String sql2 = "SELECT COUNT(*) AS count FROM access";
+					System.out.println("3");
+					PreparedStatement ps2 = con1.prepareStatement(sql2);
+					System.out.println("4");
+					ResultSet res2 = ps2.executeQuery();
+					System.out.println("5");
+					while(res2.next())
+					{ c = res2.getInt(1);
+					 System.out.print(c);}
+					c+=1;
+					while(res1.next()) {
+						
+						String use1 = res1.getString("username");
+						System.out.print("1");
+						if(nu!=use1) {
+							String sql3 = "insert into access values("+c+",'"+nu+"','"+np+"')";
+							PreparedStatement pts = con1.prepareStatement(sql3);
+							System.out.print(np);
+						    /*pts.setValueAt(np,sql2,0);
+						    System.out.print(i);
+							pts.setInt(1,i);
+							System.out.println(sql2);*/
+							System.out.println("2");
+							pts.executeUpdate(sql3);
+							System.out.print("success");
+							JOptionPane.showMessageDialog(signin, " data created", "created", -1);
+							try {
+								login frame = new login();
+								frame.setVisible(true);
+								SwingUtilities.windowForComponent(signin).dispose();
+								
+							}
+							catch(Exception a)
+							{
+							}
+						}
+						else {
+						     newuser.setText("");
+						     newpass.setText("");
+						     
+						}
+						i++;
+					}
+					}
+					catch(Exception os)
+					{
+						System.out.print(os);
+					}
+			}
+		});
+		signin.setFont(new Font("Tahoma", Font.BOLD, 14));
+		signin.setBounds(200, 302, 113, 41);
+		contentPane.add(signin);
+	}
+
+}

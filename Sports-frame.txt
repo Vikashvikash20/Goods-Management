@@ -1,0 +1,120 @@
+package goods;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.UIManager;
+
+public class sports extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					sports frame = new sports();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public sports() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 876, 589);
+		contentPane = new JPanel();
+		contentPane.setBackground(UIManager.getColor("Button.darkShadow"));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnNewButton = new JButton("CRICKET");
+		btnNewButton.setBackground(new Color(255, 128, 0));
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cricket frame = new cricket();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(46, 122, 193, 132);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("HOCKEY");
+		btnNewButton_1.setBackground(new Color(0, 255, 0));
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HOCKEY frame = new HOCKEY();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(306, 122, 193, 132);
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("VOLLEYBALL");
+		btnNewButton_2.setBackground(new Color(0, 204, 255));
+		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VOLLEYBALL frame = new VOLLEYBALL();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_2.setBounds(577, 122, 193, 132);
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("FOOTBALL");
+		btnNewButton_3.setBackground(new Color(255, 204, 0));
+		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FOOTBALL frame = new FOOTBALL();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_3.setBounds(306, 319, 193, 132);
+		contentPane.add(btnNewButton_3);
+		
+		JButton Back = new JButton("BACK");
+		Back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dashboard frame = new dashboard();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		Back.setFont(new Font("Tahoma", Font.BOLD, 14));
+		Back.setBounds(740, 10, 100, 28);
+		contentPane.add(Back);
+		
+		JLabel lblNewLabel = new JLabel("SPORTS GOODS");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblNewLabel.setBounds(317, 28, 222, 28);
+		contentPane.add(lblNewLabel);
+	}
+}
